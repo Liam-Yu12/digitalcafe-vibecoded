@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Today's menu{% endblock %}
+{% block content %}
+<section class="hero shell">
+  <div class="hero-copy"><p class="eyebrow">The campus coffeehouse</p><h1>Take a little<br><em>break.</em></h1><p class="hero-text">Hand-poured coffee, cozy classics, and just enough sweetness to carry you through the day.</p><a class="button button-red" href="#menu">See the menu <span>↓</span></a></div>
+  <div class="hero-stamp"><span>Freshly<br>brewed</span><strong>☕</strong><small>since today</small></div>
+</section>
+<section id="menu" class="menu-section shell"><div class="section-heading"><div><p class="eyebrow">From our counter</p><h2>Good things on the menu</h2></div><p class="section-note">Made for lingering.<br>Ready when you are.</p></div>
+  <div class="menu-grid">
+    {% for item in items %}
+      <article class="menu-card {% if not item.is_available %}is-unavailable{% endif %}">
+        <div class="menu-photo">{% if item.photo %}<img src="{{ item.photo.url }}" alt="{{ item.name }}">{% else %}<span class="menu-icon">{% cycle '☕' '✦' '◌' '▣' %}</span>{% endif %}{% if not item.is_available %}<span class="unavailable-ribbon">Unavailable</span>{% endif %}</div>
+        <div class="menu-card-body"><div class="item-heading"><h3>{{ item.name }}</h3><span class="price">${{ item.price }}</span></div><p>{{ item.description }}</p>{% if item.is_available %}<form method="post" action="{% url 'cart_add' item.id %}">{% csrf_token %}<input type="hidden" name="quantity" value="1"><input type="hidden" name="next" value="{% url 'menu' %}"><button class="text-button" type="submit">Add to tray <span>+</span></button></form>{% else %}<p class="unavailable-copy">This one is taking a little break.</p>{% endif %}</div>
+      </article>
+    {% empty %}<div class="empty-state"><h2>The counter is still warming up.</h2><p>Check back soon for today's menu.</p></div>{% endfor %}
+  </div>
+</section>
+{% endblock %}

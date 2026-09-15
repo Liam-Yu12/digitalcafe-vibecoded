@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Your orders{% endblock %}
+{% block content %}
+<section class="page-head shell"><p class="eyebrow">A little record</p><h1>Your orders</h1><p>Keep an eye on the counter from here.</p></section><section class="content-shell shell">{% for order in orders %}<a class="order-card" href="{% url 'order_detail' order.id %}"><div><span class="order-number">Order #{{ order.id }}</span><p>{{ order.items.count }} item{{ order.items.count|pluralize }} · {{ order.created_at|date:'M j, Y · g:i A' }}</p></div><div class="order-status status-{{ order.status }}">{{ order.get_status_display }} <span>→</span></div></a>{% empty %}<div class="empty-state"><span class="big-icon">✦</span><h2>No orders yet.</h2><p>Your next good thing can start on the menu.</p><a class="button button-red" href="{% url 'menu' %}">See what's cooking</a></div>{% endfor %}</section>
+{% endblock %}

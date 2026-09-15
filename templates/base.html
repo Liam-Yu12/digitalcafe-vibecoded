@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Digital Cafe{% endblock %} | Digital Cafe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/cafe.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topline">Campus coffee, made with care</div>
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="{% url 'menu' %}"><span>Digital</span> Cafe</a>
+      <div class="nav-links">
+        <a href="{% url 'menu' %}">Menu</a>
+        <a href="{% url 'cart' %}">Your tray <b class="cart-count">{{ cart_count }}</b></a>
+        {% if user.is_authenticated %}
+          <a href="{% url 'order_history' %}">Orders</a>
+          {% if user.is_staff %}<a href="{% url 'staff_dashboard' %}">Staff desk</a>{% endif %}
+          <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="link-button" type="submit">Log out</button></form>
+        {% else %}
+          <a href="{% url 'login' %}">Log in</a>
+          <a class="nav-cta" href="{% url 'register' %}">Join the cafe</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+  <main>
+    {% if messages %}
+      <div class="messages shell" aria-live="polite">
+        {% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><span>Digital Cafe / Est. whenever you need a little lift</span><span>Warm drinks. Good company.</span></div></footer>
+</body>
+</html>
