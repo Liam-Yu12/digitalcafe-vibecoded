@@ -97,9 +97,9 @@ This checklist implements the approved Digital Cafe requirements from
 
 - [x] Review the implementation branch status and diff for unintended files or secrets.
 - [x] Confirm the app runs from a clean checkout with documented setup commands.
-- [ ] Merge the implementation branch into `main` only after verification succeeds.
+- [x] Merge the implementation branch into `main` only after verification succeeds.
 - [x] Add living documentation under `doc/wiki/` covering setup, models, routes, authentication roles, staff account creation, media configuration, and customer/staff workflows.
-- [ ] Confirm the final `main` branch is clean and the documented commands remain accurate.
+- [x] Confirm the final `main` branch is clean and the documented commands remain accurate.
 
 ## Approved Product Decisions
 
