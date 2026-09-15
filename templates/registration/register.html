@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Join the cafe{% endblock %}
+{% block content %}<section class="auth-wrap shell"><div class="auth-card"><p class="eyebrow">Make yourself at home</p><h1>Join the cafe.</h1><p class="auth-intro">Create a customer account to place pickup requests and follow them from the counter to completion.</p><form method="post">{% csrf_token %}{{ form.as_p }}<button class="button button-red full-button" type="submit">Create account <span>→</span></button></form><p class="auth-foot">Already have an account? <a href="{% url 'login' %}">Log in</a></p></div></section>{% endblock %}

@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Log in{% endblock %}
+{% block content %}<section class="auth-wrap shell"><div class="auth-card"><p class="eyebrow">Welcome back</p><h1>Pull up a chair.</h1><p class="auth-intro">Log in to check your orders and send your next request to the counter.</p><form method="post">{% csrf_token %}{{ form.as_p }}{% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}<button class="button button-red full-button" type="submit">Log in <span>→</span></button></form><p class="auth-foot">New around here? <a href="{% url 'register' %}">Join the cafe</a></p></div></section>{% endblock %}

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Review pickup{% endblock %}
+{% block content %}
+<section class="page-head shell"><p class="eyebrow">One last look</p><h1>Send it to the counter</h1><p>We'll start your order as soon as you place this pickup request.</p></section>
+<section class="content-shell shell narrow-grid"><div class="order-summary checkout-card"><p class="eyebrow">Your order</p>{% for line in items %}<div class="summary-row"><span>{{ line.quantity }} × {{ line.product.name }}</span><strong>${{ line.line_total }}</strong></div>{% endfor %}<div class="summary-total"><span>Total</span><strong>${{ cart.total }}</strong></div>{% if unavailable %}<div class="alert alert-error">Unavailable items need to be removed before you can place this request: {{ unavailable|join:', ' }}.</div>{% else %}<form method="post">{% csrf_token %}<button class="button button-red full-button" type="submit">Place pickup request <span>→</span></button></form>{% endif %}<a class="back-link" href="{% url 'cart' %}">← Back to your tray</a></div></section>
+{% endblock %}
