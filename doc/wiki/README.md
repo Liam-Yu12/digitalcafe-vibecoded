@@ -31,7 +31,9 @@ The default database is SQLite at `db.sqlite3`. The project settings use
 `DEBUG = True`, an in-code development secret key, and an explicit development
 `ALLOWED_HOSTS` list containing `localhost`, `127.0.0.1`, and the
 `.coderange.net` suffix. The suffix accepts CodeRange subdomains, including
-forwarded-port hostnames; these settings are for local development, not
+forwarded-port hostnames. HTTPS CodeRange subdomains are also listed in
+`CSRF_TRUSTED_ORIGINS` as `https://*.coderange.net` so forwarded form POSTs
+pass Django's origin check. These settings are for local development, not
 production.
 
 ## Accounts and Roles
@@ -224,6 +226,7 @@ The tests use Django's test database and do not require a pre-existing local
   separate profile or role model.
 - The project configuration is development-oriented (`DEBUG = True`, a hard-
   coded secret key, the broad workspace-specific `.coderange.net`
-  `ALLOWED_HOSTS` suffix, SQLite, and debug media serving).
+  `ALLOWED_HOSTS` suffix, the broad `https://*.coderange.net` CSRF trust,
+  SQLite, and debug media serving).
 - No production deployment, object storage, media access control, or static
   asset deployment configuration is included.
